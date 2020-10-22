@@ -63,16 +63,14 @@ Vector3<Tp>& Vector3<Tp>::operator /= (Tp v)
 	return *this;
 }
 
-
-
 //vector op
 
 template <class Tp>
 Vector3<Tp>& Vector3<Tp>::operator += (const Vector3<Tp>& v)
 {
-	vec3[0] += vec3[0];
-	vec3[1] += vec3[1];
-	vec3[2] += vec3[2];
+	vec3[0] += v[0];
+	vec3[1] += v[1];
+	vec3[2] += v[2];
 	return *this;
 }
 

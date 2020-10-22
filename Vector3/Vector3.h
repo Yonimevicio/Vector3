@@ -12,7 +12,7 @@ public:
 	Vector3<Tp>& normalize();
 	const float distance_to(const Vector3<Tp>&) const;
 	const Tp dot_product(const Vector3<Tp>&) const;
-	const Vector3<T> cross_product(const Vector3<T>&) const;
+	const Vector3<Tp> cross_product(const Vector3<Tp>&) const;
 	const float angle_between(const Vector3<Tp>&) const;
 	
 	//scalar op
