@@ -20,12 +20,12 @@ public:
 	const float round_epsilon(const float number) const;
 	
 	//scalar op             
-	Vector3<Tp>& operator*=(const Tp s);
-	Vector3<Tp>& operator/=(const Tp s);
+	Vector3<Tp>& operator*(const Tp s);
+	Vector3<Tp>& operator/(const Tp s);
 
 	//vector op
-	Vector3<Tp>& operator+=(const Vector3<Tp>& v); 
-	Vector3<Tp>& operator-=(const Vector3<Tp>& v);
+	Vector3<Tp>& operator+(const Vector3<Tp>& v); 
+	Vector3<Tp>& operator-(const Vector3<Tp>& v);
 
 };
 
@@ -39,11 +39,11 @@ Vector3<Tp>::Vector3()
 }
 
 template <class Tp>
-Vector3<Tp>::Vector3(const Tp x, const Tp y, const Tp z)
+Vector3<Tp>::Vector3(const Tp _x, const Tp _y, const Tp _z)
 {
-	x = x;
-	y = y;
-	z = z;
+	x = _x;
+	y = _y;
+	z = _z;
 }
 
 template <class Tp>
@@ -57,7 +57,7 @@ Vector3<Tp>::Vector3(const Vector3<Tp>& v)
 //scalar op
 
 template <class Tp>
-Vector3<Tp>& Vector3<Tp>::operator *= (Tp v)
+Vector3<Tp>& Vector3<Tp>::operator * (Tp v)
 {
 	x *= v;
 	y *= v;
@@ -66,7 +66,7 @@ Vector3<Tp>& Vector3<Tp>::operator *= (Tp v)
 }
 
 template <class Tp>
-Vector3<Tp>& Vector3<Tp>::operator /= (Tp v)
+Vector3<Tp>& Vector3<Tp>::operator / (Tp v)
 {
 	x /= v;
 	y /= v;
@@ -77,7 +77,7 @@ Vector3<Tp>& Vector3<Tp>::operator /= (Tp v)
 //vector op
 
 template <class Tp>
-Vector3<Tp>& Vector3<Tp>::operator += (const Vector3<Tp>& v)
+Vector3<Tp>& Vector3<Tp>::operator + (const Vector3<Tp>& v)
 {
 	x += v.x;
 	y += v.y;
@@ -86,7 +86,7 @@ Vector3<Tp>& Vector3<Tp>::operator += (const Vector3<Tp>& v)
 }
 
 template <class Tp>
-Vector3<Tp>& Vector3<Tp>::operator -= (const Vector3<Tp>& v)
+Vector3<Tp>& Vector3<Tp>::operator - (const Vector3<Tp>& v)
 {
 	x -= v.x;
 	y -= v.y;
@@ -157,6 +157,7 @@ template<class Tp>
 inline const float Vector3<Tp>::angle_between(const Vector3<Tp>& vec) const
 {	
 	float dot = dot_product(vec);
+	dot = dot / (magnitude() * vec.magnitude());
 	dot = (dot < -1.0 ? -1.0 : (dot > 1.0 ? 1.0 : dot));
 	return acos(dot);
 }
