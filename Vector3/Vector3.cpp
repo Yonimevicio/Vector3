@@ -4,25 +4,25 @@ template <class Tp>
 // Constructors
 Vector3<Tp>::Vector3()
 {
-	vec3[0] = 0.0;
-	vec3[1] = 0.0;
-	vec3[2] = 0.0;
+	x = 0.0;
+	y = 0.0;
+	z = 0.0;
 }
 
 template <class Tp>
 Vector3<Tp>::Vector3(const Tp x, const Tp y, const Tp z)
 {
-	vec3[0] = x;
-	vec3[1] = y;
-	vec3[2] = z;
+	x = x;
+	y = y;
+	z = z;
 }
 
 template <class Tp>
 Vector3<Tp>::Vector3(const Vector3<Tp>& v)
 {
-	vec3[0] = v[0];
-	vec3[1] = v[1];
-	vec3[2] = v[2];
+	x = v.x;
+	y = v.y;
+	z = v.z;
 }
 
 //scalar op
@@ -30,36 +30,36 @@ Vector3<Tp>::Vector3(const Vector3<Tp>& v)
 template <class Tp>
 Vector3<Tp>& Vector3<Tp>::operator += (Tp v)
 {
-	vec3[0] += v;
-	vec3[1] += v;
-	vec3[2] += v;
+	x += v;
+	y += v;
+	z += v;
 	return *this;
 }
 
 template <class Tp>
 Vector3<Tp>& Vector3<Tp>::operator -= (Tp v)
 {
-	vec3[0] -= v;
-	vec3[1] -= v;
-	vec3[2] -= v;
+	x -= v;
+	y -= v;
+	z -= v;
 	return *this;
 }
 
 template <class Tp>
 Vector3<Tp>& Vector3<Tp>::operator *= (Tp v)
 {
-	vec3[0] *= v;
-	vec3[1] *= v;
-	vec3[2] *= v;
+	x *= v;
+	y *= v;
+	z *= v;
 	return *this;
 }
 
 template <class Tp>
 Vector3<Tp>& Vector3<Tp>::operator /= (Tp v)
 {
-	vec3[0] /= v;
-	vec3[1] /= v;
-	vec3[2] /= v;
+	x /= v;
+	y /= v;
+	z /= v;
 	return *this;
 }
 
@@ -68,21 +68,22 @@ Vector3<Tp>& Vector3<Tp>::operator /= (Tp v)
 template <class Tp>
 Vector3<Tp>& Vector3<Tp>::operator += (const Vector3<Tp>& v)
 {
-	vec3[0] += v[0];
-	vec3[1] += v[1];
-	vec3[2] += v[2];
+	x += v.x;
+	y += v.y;
+	z += v.z;
 	return *this;
 }
 
 //math op
+
 template <class Tp>
 inline const Tp Vector3<Tp>::dot_product(const Vector3<Tp>& v) const
 {
-	return vec3[0] * v[0] + vec3[1] * v[1] + vec3[2] * v[2];
+	return x * v.x + y * v.y + z * v.z;
 }
 
 template <class Tp>
-inline const Tp Vector3<Tp>::norm() const
+inline const Tp Vector3<Tp>::magnitude() const
 {
 	return (Tp)sqrt(dot_product(*this));
 }
@@ -90,13 +91,23 @@ inline const Tp Vector3<Tp>::norm() const
 template <class Tp>
 Vector3<Tp>& Vector3<Tp>::normalize()
 {
-	Tp n = norm();
-	if (n) {
-		vec3[0] /= n;
-		vec3[1] /= n;
-		vec3[2] /= n;
+	Tp n = magnitude();
+	if (n) { //epsilon
+		x /= n;
+		y /= n;
+		z /= n;
 	}
 	return *this;
 }
 
+
+template <class Tp>
+inline const Vector3<Tp> Vector3<Tp>::cross_product(const Vector3<Tp>& v) const
+{
+	return vector3<Tp>(
+		(x * v.z) - (z * v.y),
+		(z * v.x) - (x * v.z),
+		(x * v.y) - (y * v.x)
+		);
+}
 
